@@ -146,4 +146,8 @@ public class PredicateInterface {
     }
 
     // 	15.	✅ Find the product(s) whose name ends with “r”.
+
+    public static List<Product> getProductsWhooseNameEndsWithR(List<Product> productList){
+        return productList.stream().filter(product -> product.getName().toLowerCase().endsWith("r")).collect(Collectors.toList());
+    }
 }
