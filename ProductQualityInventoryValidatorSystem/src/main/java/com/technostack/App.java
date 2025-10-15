@@ -65,6 +65,47 @@ public class App {
 
         boolean returnedProductbelow = getSampleProducts().stream().map(Product::getPrice).noneMatch(price -> price < 1000);
         System.out.println("Returned Product below 1000 :"+returnedProductbelow);
+
+        //4️⃣ Are all electronics priced above 30 000 ₹?
+
+
+        /**
+         * Resoning
+         *
+         * 1️⃣ getSampleProducts().stream() → creates a stream of all Product objects.
+         * 2️⃣ .filter(pro -> pro.getCategory().equalsIgnoreCase("electronics")) → filters only those products whose category is “electronics” (case-insensitive).
+         * 3️⃣ .allMatch(product -> product.getPrice() > 30000) → checks if all filtered electronics products have a price greater than ₹30,000.
+         * 4️⃣ ✅ Returns true if all electronics meet the condition, otherwise false.
+         * 5️⃣ ⚙️ If there are no electronics products, it returns true (vacuously true behavior of allMatch).
+         */
+        boolean elctronicsAbovePriced = getSampleProducts().stream().filter(pro -> pro.getCategory().equalsIgnoreCase("electronics"))
+                .allMatch(product -> product.getPrice() > 30000);
+        System.out.println("Electronic Above Priced :"+elctronicsAbovePriced);
+
+
+        // 5️⃣ Is there any fashion product defective?
+
+        /**
+         * Resoning
+         *
+         * 1️⃣ Predicate<Product> fasionPredicate = product -> product.getCategory().equalsIgnoreCase("Fashion");
+         * → Defines a predicate that selects only fashion category products.
+         *
+         * 2️⃣ getSampleProducts().stream()
+         * → Creates a Stream of all Product objects.
+         *
+         * 3️⃣ .filter(fasionPredicate)
+         * → Filters the stream to include only fashion products.
+         *
+         * 4️⃣ .anyMatch(prod -> prod.isDefective())
+         * → Checks if any fashion product is defective.
+         *
+         * 5️⃣ ✅ Returns true if at least one fashion product is defective; otherwise false.
+         * 6️⃣ ⚙️ If there are no fashion products, it safely returns false (no match found).
+         */
+        Predicate<Product> fasionPredicate = product -> product.getCategory().equalsIgnoreCase("Fashion");
+        boolean isFashionProductDefective = getSampleProducts().stream().filter(fasionPredicate).anyMatch(prod -> !prod.isDefective());
+        System.out.println("Fashion Product is Defective :"+isFashionProductDefective);
     }
 
     private static List<Product> getSampleProducts() {
