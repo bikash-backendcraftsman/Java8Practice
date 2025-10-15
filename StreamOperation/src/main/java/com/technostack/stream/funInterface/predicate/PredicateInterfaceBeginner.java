@@ -1,15 +1,13 @@
-package com.technostack.stream.funInterface;
+package com.technostack.stream.funInterface.predicate;
 
 import com.technostack.stream.model.Product;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class PredicateInterface {
+public class PredicateInterfaceBeginner {
 
     //🔹 1. Beginner Level (Basic Predicate<T> Usage) – 15 Questions
 

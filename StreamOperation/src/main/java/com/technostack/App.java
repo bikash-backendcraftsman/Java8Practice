@@ -1,6 +1,6 @@
 package com.technostack;
 
-import com.technostack.stream.funInterface.PredicateInterface;
+import com.technostack.stream.funInterface.predicate.PredicateInterfaceBeginner;
 import com.technostack.stream.model.Employee;
 import com.technostack.stream.model.Product;
 import com.technostack.stream.operation.AllMatchOperation;
@@ -27,11 +27,11 @@ public class App {
          */
 
         // 1.	✅ Check if any product name equals "Laptop".
-         boolean val = PredicateInterface.checkIfAnyProductNamesEqualstoLaptop(Product.createDummyProductList());
+         boolean val = PredicateInterfaceBeginner.checkIfAnyProductNamesEqualstoLaptop(Product.createDummyProductList());
          System.out.println("Check if any Product name Equals Laptop :"+val);
 
         // 2.	✅ Check if any product price is greater than 500.
-        boolean greaterThan500 = PredicateInterface.checkIfAnyProductPriceIsGreaterThan500(Product.createDummyProductList());
+        boolean greaterThan500 = PredicateInterfaceBeginner.checkIfAnyProductPriceIsGreaterThan500(Product.createDummyProductList());
         System.out.println("Check if any Product price is Greater than 500 :"+greaterThan500);
 
         //3.	✅ Filter all products whose price is less than 300.

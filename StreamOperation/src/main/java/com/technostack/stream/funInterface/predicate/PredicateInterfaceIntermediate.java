@@ -1,0 +1,4 @@
+package com.technostack.stream.funInterface.predicate;
+
+public class PredicateInterfaceIntermediate {
+}
