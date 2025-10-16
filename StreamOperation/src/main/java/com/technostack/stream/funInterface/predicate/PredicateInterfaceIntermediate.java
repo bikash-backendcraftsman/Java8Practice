@@ -1,8 +1,6 @@
 package com.technostack.stream.funInterface.predicate;
 
 import com.technostack.stream.model.Product;
-
-import java.time.Period;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -110,6 +108,42 @@ public class PredicateInterfaceIntermediate {
 
     // 22.	🔁 Use method reference for a predicate that checks Product::getPrice > 500.
 
+    /**
+     * Learning Note :
+     *
+     * When we do .anyMatch(ProductFilterUtils::isPriceAbove500),
+     * Is it really taking a Predicate<T>?
+     *
+     * ✅ Short Answer:
+     *
+     * 👉 Yes, it accepts a Predicate<Product>.
+     *
+     * Why? Because .anyMatch(...) is defined to accept a Predicate<T>, and a method reference like
+     * ProductFilterUtils::isPriceAbove500 automatically matches the Predicate<Product> functional interface
+     * if the method signature matches.
+     *
+     * ✅ Let’s break it down:
+     *
+     * 🔹 Signature of .anyMatch(...):
+     * boolean anyMatch(Predicate<? super T> predicate)
+     * So, it needs something that matches:
+     * Predicate<Product> → boolean test(Product p)
+     *
+     * 🔹 Now let’s say we have:
+     * public class ProductFilterUtils {
+     *     public static boolean isPriceAbove500(Product p) {
+     *         return p.getPrice() > 500;
+     *     }
+     * }
+     *
+     * This method: boolean isPriceAbove500(Product p)
+     *
+     * ✔️ Has the same input and output as Predicate<Product>: Product → boolean
+     *
+     * ✅ So this works: productList.stream()
+     *     .anyMatch(ProductFilterUtils::isPriceAbove500);
+     */
+
     public static boolean isPriceAbove500(Product product) {
         return product.getPrice() > 500;
     }
@@ -120,7 +154,18 @@ public class PredicateInterfaceIntermediate {
 
     // 23.	🔁 Filter products where name contains "o" and price is divisible by 100.
 
+    public static List<Product> filterProductsWithMatchingCondition(List<Product> productList){
+        Predicate<Product> productContainsA = product -> product.getName().toLowerCase().contains("o");
+        Predicate<Product> priceDivisiblePredicate = product -> product.getPrice() % 100 == 0;
+
+        Predicate<Product> jointPred = productContainsA.and(priceDivisiblePredicate);
+
+        return productList.stream().filter(jointPred).collect(Collectors.toList());
+    }
+
     // 24.	🔁 Combine multiple predicates: starts with “M”, price > 200, quantity < 90.
+
+    
 
     // 25.	🔁 Find if none of the products have quantity more than 100.
 
