@@ -1,6 +1,7 @@
 package com.technostack.stream.funInterface.predicate;
 
 import com.technostack.stream.model.Product;
+
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -110,38 +111,38 @@ public class PredicateInterfaceIntermediate {
 
     /**
      * Learning Note :
-     *
+     * <p>
      * When we do .anyMatch(ProductFilterUtils::isPriceAbove500),
      * Is it really taking a Predicate<T>?
-     *
+     * <p>
      * ✅ Short Answer:
-     *
+     * <p>
      * 👉 Yes, it accepts a Predicate<Product>.
-     *
+     * <p>
      * Why? Because .anyMatch(...) is defined to accept a Predicate<T>, and a method reference like
      * ProductFilterUtils::isPriceAbove500 automatically matches the Predicate<Product> functional interface
      * if the method signature matches.
-     *
+     * <p>
      * ✅ Let’s break it down:
-     *
+     * <p>
      * 🔹 Signature of .anyMatch(...):
      * boolean anyMatch(Predicate<? super T> predicate)
      * So, it needs something that matches:
      * Predicate<Product> → boolean test(Product p)
-     *
+     * <p>
      * 🔹 Now let’s say we have:
      * public class ProductFilterUtils {
-     *     public static boolean isPriceAbove500(Product p) {
-     *         return p.getPrice() > 500;
-     *     }
+     * public static boolean isPriceAbove500(Product p) {
+     * return p.getPrice() > 500;
      * }
-     *
+     * }
+     * <p>
      * This method: boolean isPriceAbove500(Product p)
-     *
+     * <p>
      * ✔️ Has the same input and output as Predicate<Product>: Product → boolean
-     *
+     * <p>
      * ✅ So this works: productList.stream()
-     *     .anyMatch(ProductFilterUtils::isPriceAbove500);
+     * .anyMatch(ProductFilterUtils::isPriceAbove500);
      */
 
     public static boolean isPriceAbove500(Product product) {
@@ -154,7 +155,7 @@ public class PredicateInterfaceIntermediate {
 
     // 23.	🔁 Filter products where name contains "o" and price is divisible by 100.
 
-    public static List<Product> filterProductsWithMatchingCondition(List<Product> productList){
+    public static List<Product> filterProductsWithMatchingCondition(List<Product> productList) {
         Predicate<Product> productContainsA = product -> product.getName().toLowerCase().contains("o");
         Predicate<Product> priceDivisiblePredicate = product -> product.getPrice() % 100 == 0;
 
@@ -165,7 +166,7 @@ public class PredicateInterfaceIntermediate {
 
     // 24.	🔁 Combine multiple predicates: starts with “M”, price > 200, quantity < 90 and filter those.
 
-    public static List<Product> combineMultiplePredicateCondition(List<Product> productList){
+    public static List<Product> combineMultiplePredicateCondition(List<Product> productList) {
         Predicate<Product> con1 = product -> product.getName().startsWith("M") && product.getPrice() > 200;
         Predicate<Product> con2 = product -> product.getQuantity() < 90;
 
@@ -176,23 +177,54 @@ public class PredicateInterfaceIntermediate {
 
     // 25.	🔁 Find if none of the products have quantity more than 100.
 
-    public static boolean filterProductWhoseQuantityNotMoreThan100(List<Product> productList){
+    public static boolean filterProductWhoseQuantityNotMoreThan100(List<Product> productList) {
         return productList.stream().noneMatch(product -> product.getQuantity() > 100);
     }
 
     // 26.	🔁 Count how many products have name length < 6.
 
-    public static long countProductsNameHavingLengthLessThan6(List<Product> productList){
+    public static long countProductsNameHavingLengthLessThan6(List<Product> productList) {
         return productList.stream().filter(product -> product.getName().length() < 6).count();
     }
 
+
     // 27.	🔁 Filter products where name does not contain “e”.
+
+    /**
+     * Learning Note :
+     * <p>
+     * product.getName().toLowerCase().contains("e")   :    Checks if the name contains “e”, case-insensitive
+     * <p>
+     * .negate()      :         Flips the condition → becomes “does not contain ‘e’”
+     * <p>
+     * filter(...)     :     Applies the predicate to the stream
+     * <p>
+     * collect(Collectors.toList())    :     Returns a list of matching products
+     *
+     *
+     */
+
+    public static List<Product> filterProductNameDoesNotContainCharacterE(List<Product> productList) {
+        Predicate<Product> filterPredicate = product -> product.getName().toLowerCase().contains("e");
+        return productList.stream().filter(filterPredicate.negate()).collect(Collectors.toList());
+    }
 
     // 28.	🔁 Use a Predicate<Product> that checks name equalsIgnoreCase "MOUSE".
 
+    public boolean checkNameifItIsMouse(List<Product> productList){
+        Predicate<Product> checknamepredicate = product -> product.getName().equalsIgnoreCase("MOUSE");
+        return productList.stream().anyMatch(checknamepredicate);
+    }
+
     // 29.	🔁 Filter products where quantity is a multiple of 10 and price > 400.
 
+
+
     // 30.	🔁 Check if all product names are in UPPERCASE (optional enhancement).
+
+    public static boolean checkIfAllProductNameAreInUpperCase(List<Product> productList){
+        return productList.stream().allMatch(product -> product.getName().equals(product.getName().toUpperCase()));
+    }
 
     // 31.	🔁 Filter products where price is between 300 and 600 (inclusive).
 
