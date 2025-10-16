@@ -230,9 +230,24 @@ public class PredicateInterfaceIntermediate {
 
     // 32.	🔁 Find products where name starts with “K” or “S”.
 
+    public static List<Product> filterProductsWithOrCondition(List<Product> productList){
+        Predicate<Product> kPredicate = product -> product.getName().startsWith("K");
+        Predicate<Product> sPredicate = product -> product.getName().startsWith("S");
+
+        return productList.stream().filter(kPredicate.or(sPredicate)).collect(Collectors.toList());
+    }
+
     // 33.	🔁 Filter products whose name has vowels more than 2.
 
+    public static List<Product> filterProductNameWhichContainVowelsMoreThan2(List<Product> productList){
+        return null;
+    }
+
     // 34.	🔁 Find if any product’s name contains “top” (e.g., “Laptop”).
+
+    public static boolean filterProductsNameWhichContainsCertainString(List<Product> productList){
+        return productList.stream().anyMatch(product -> product.getName().contains("top"));
+    }
 
     // 35.	🔁 Exclude all products with duplicate names using Predicate + helper logic.
 }
