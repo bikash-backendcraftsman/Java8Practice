@@ -163,13 +163,28 @@ public class PredicateInterfaceIntermediate {
         return productList.stream().filter(jointPred).collect(Collectors.toList());
     }
 
-    // 24.	🔁 Combine multiple predicates: starts with “M”, price > 200, quantity < 90.
+    // 24.	🔁 Combine multiple predicates: starts with “M”, price > 200, quantity < 90 and filter those.
 
-    
+    public static List<Product> combineMultiplePredicateCondition(List<Product> productList){
+        Predicate<Product> con1 = product -> product.getName().startsWith("M") && product.getPrice() > 200;
+        Predicate<Product> con2 = product -> product.getQuantity() < 90;
+
+        Predicate<Product> con1Con2 = con1.and(con2);
+
+        return productList.stream().filter(con1Con2).collect(Collectors.toList());
+    }
 
     // 25.	🔁 Find if none of the products have quantity more than 100.
 
+    public static boolean filterProductWhoseQuantityNotMoreThan100(List<Product> productList){
+        return productList.stream().noneMatch(product -> product.getQuantity() > 100);
+    }
+
     // 26.	🔁 Count how many products have name length < 6.
+
+    public static long countProductsNameHavingLengthLessThan6(List<Product> productList){
+        return productList.stream().filter(product -> product.getName().length() < 6).count();
+    }
 
     // 27.	🔁 Filter products where name does not contain “e”.
 
