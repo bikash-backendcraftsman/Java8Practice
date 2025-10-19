@@ -230,6 +230,10 @@ public class PredicateInterfaceIntermediate {
 
     // 32.	🔁 Find products where name starts with “K” or “S”.
 
+    public static List<Product> getProductsStartsWithKOrS(List<Product> productList){
+        return null;
+    }
+
     public static List<Product> filterProductsWithOrCondition(List<Product> productList){
         Predicate<Product> kPredicate = product -> product.getName().startsWith("K");
         Predicate<Product> sPredicate = product -> product.getName().startsWith("S");
