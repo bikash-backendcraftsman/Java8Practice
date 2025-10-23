@@ -1,5 +1,6 @@
 package com.technostack.stream.funInterface.consumer;
 
+import com.technostack.stream.model.Employee;
 import com.technostack.stream.model.Product;
 
 import java.util.Arrays;
@@ -70,6 +71,14 @@ public class ConsumerBeginner {
 
     //  4.Use Consumer with forEach() to print employee names and salaries.
 
-    
+    public static void printEmployeeNameAndSalary(List<Employee> employeeList){
+        // ✅ Define the Consumer
+        Consumer<Employee> employeeConsumer = emp -> System.out.println(
+                "Name: " + emp.getName() + ", Salary: " + emp.getSalary());
+
+        // ✅ Use forEach with Consumer
+        employeeList.forEach(employeeConsumer);
+    }
+
     //  5.Write a Consumer to print "Processing complete" after a list iteration.
 }
