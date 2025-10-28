@@ -64,7 +64,7 @@ public class Employee {
         Employee e2 = new Employee("Tapan",32,true,70000);
         Employee e3 = new Employee("Muskan",32,true,90000);
         Employee e4 = new Employee("Suman",33,false,30000);
-        Employee e5 = new Employee("Guntur",36,true.3000);
+        Employee e5 = new Employee("Guntur",36,true,3000);
         Employee e6 = new Employee("Mayur",56,false,8000);
         Employee e7 = new Employee("Aakash",67,true,17000);
         empList.add(e1);
